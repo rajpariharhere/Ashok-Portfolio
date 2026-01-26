@@ -1,7 +1,7 @@
 
 import React from 'react';
 import Icon from './Icon';
-import { PROFILE_IMAGE } from '../constants';
+import Raj from "../imgs/Ashok.jpg"
 
 const Footer: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="flex items-center gap-8">
           <div 
             className="size-20 bg-center bg-no-repeat bg-cover border-2 border-accent shadow-lg grayscale hover:grayscale-0 transition-all duration-500" 
-            style={{ backgroundImage: `url("${PROFILE_IMAGE}")` }}
+            style={{ backgroundImage: `url("${Raj}")` }}
           ></div>
           <div className="flex flex-col">
             <div className="flex items-center gap-3">

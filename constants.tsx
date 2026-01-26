@@ -1,6 +1,8 @@
 
 import { Project, Internship, JourneyMilestone } from './types';
 
+
+
 export const PROJECTS: Project[] = [
   {
     id: '1',
@@ -66,13 +68,13 @@ export const JOURNEY: JourneyMilestone[] = [
 ];
 
 export const SOCIAL_LINKS = {
-  linkedIn: 'https://linkedin.com',
-  github: 'https://github.com',
+  linkedIn: 'www.linkedin.com/in/ashokrajsingh',
+  github: 'https://github.com/rajpariharhere',
   twitter: 'https://twitter.com',
   instagram: 'https://instagram.com',
   facebook: 'https://facebook.com',
-  email: 'ashokraj@example.com',
-  phone: '+91 98765 43210'
+  email: 'rajparihar407@gmail.com',
+  phone: '+91 7024791886'
 };
 
-export const PROFILE_IMAGE = "https://lh3.googleusercontent.com/aida-public/AB6AXuA8aGODlicNFc-Y3kfcMrHZdRA92pUujwa7vZsbonMDTW3TRCr9loF_6l7xe6472xxkKkzgsaodVwz0P7AtPuw8b_rXY3PQvqvYBlql5GBNRF7jMavGoHagXc31DqQ5tqwEZT1CR3ELmFYiHU-Bmqvki-8j0x7FKtHMq71DVmVMnJVXyf3jO9L3j5WdlYeVKB1oUZwFVyKobyI8M8yP0HU517xmknJjtAERHo6OeYpdEFxWtyNpqdxe1tdpui8WwJOSlzDnoiqgzlSw";
+//export const PROFILE_IMAGE = Raj;

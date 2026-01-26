@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { PROFILE_IMAGE } from '../constants';
+import Raj from "../imgs/Ashok.jpg"
 
 const FloatingStatus: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const FloatingStatus: React.FC = () => {
         <div className="relative size-14 border-2 border-border-color p-1 bg-white/80 backdrop-blur-sm overflow-hidden group-hover:border-accent transition-colors">
           <div 
             className="w-full h-full bg-center bg-no-repeat bg-cover" 
-            style={{ backgroundImage: `url("${PROFILE_IMAGE}")` }}
+            style={{ backgroundImage: `url("${Raj}")` }}
           ></div>
         </div>
         <div className="absolute bottom-0 right-0 size-3 bg-green-500 border-2 border-white rounded-full"></div>
