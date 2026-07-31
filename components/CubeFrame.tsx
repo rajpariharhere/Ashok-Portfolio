@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import Raj from "../imgs/Ashok.jpg";
 
-const CubeFrame: React.FC = () => {
+interface CubeFrameProps {
+  theme: 'light' | 'dark';
+}
+
+const CubeFrame: React.FC<CubeFrameProps> = ({ theme }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isDark = theme === 'dark';
 
   const style: React.CSSProperties = {
     transform: isHovered
@@ -13,25 +18,20 @@ const CubeFrame: React.FC = () => {
 
   return (
     <div
-      className="relative group inline-block"
+      className="group relative inline-block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="absolute -inset-1 bg-gradient-to-tr from-primary to-accent opacity-20 blur-lg"></div>
+      <div className="absolute -inset-1 bg-[#F97316]/20 blur-lg"></div>
 
-      {/* FRAME AUTO SIZE */}
       <div
         style={style}
-        className="relative max-w-[18rem] max-h-[22rem] border-2 border-primary/10 shadow-xl overflow-hidden"
+        className={`relative max-h-[22rem] max-w-[18rem] overflow-hidden border-2 shadow-xl ${isDark ? 'border-slate-700' : 'border-slate-200'}`}
       >
-        <img
-          src={Raj}
-          alt="profile"
-          className="block w-full h-auto object-contain"
-        />
+        <img src={Raj} alt="profile" className="block h-auto w-full object-contain" />
 
-        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-accent"></div>
-        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-accent"></div>
+        <div className="absolute left-0 top-0 h-4 w-4 border-l-2 border-t-2 border-[#F97316]"></div>
+        <div className="absolute bottom-0 right-0 h-4 w-4 border-b-2 border-r-2 border-[#F97316]"></div>
       </div>
     </div>
   );

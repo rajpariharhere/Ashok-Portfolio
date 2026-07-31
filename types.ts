@@ -5,6 +5,8 @@ export interface Project {
   description: string;
   tag: string;
   icon: string;
+  technologies?: string[];
+  highlights?: string[];
 }
 
 export interface Internship {
@@ -16,6 +18,10 @@ export interface Internship {
   isHighlight?: boolean;
   competencies?: string[];
   tech?: string;
+  location?: string;
+  dateRange?: string;
+  technologies?: string[];
+  highlights?: string[];
 }
 
 export interface JourneyMilestone {
@@ -23,4 +29,13 @@ export interface JourneyMilestone {
   label: string;
   icon: string;
   isCompleted: boolean;
+  organization?: string;
+  description?: string;
+}
+
+export interface SkillCategory {
+  title: string;
+  description: string;
+  icon: string;
+  items: string[];
 }

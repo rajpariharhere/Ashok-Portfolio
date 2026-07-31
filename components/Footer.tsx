@@ -3,9 +3,15 @@ import React from 'react';
 import Icon from './Icon';
 import Raj from "../imgs/Ashok.jpg"
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  theme: 'light' | 'dark';
+}
+
+const Footer: React.FC<FooterProps> = ({ theme }) => {
+  const isDark = theme === 'dark';
+
   return (
-    <footer className="border-t border-border-color py-20 bg-white relative">
+    <footer className={`relative border-t py-20 transition-colors duration-300 ${isDark ? 'border-slate-800 bg-slate-950' : 'border-slate-200 bg-white'}`}>
       <div className="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-12">
         <div className="flex items-center gap-8">
           <div 
@@ -17,9 +23,9 @@ const Footer: React.FC = () => {
               <div className="size-6 bg-primary flex items-center justify-center text-white">
                 <Icon name="terminal" className="text-sm" />
               </div>
-              <span className="font-black uppercase tracking-tighter text-xl text-primary">Ashok Raj Singh</span>
+              <span className={`text-xl font-black uppercase tracking-tighter ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>Ashok Raj Singh</span>
             </div>
-            <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2 max-w-xs">
+            <p className={`mt-2 max-w-xs text-xs font-bold uppercase tracking-widest ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
               Engineering Excellence <br/> Through Code.
             </p>
           </div>
@@ -30,12 +36,12 @@ const Footer: React.FC = () => {
               <Icon name="share" className="text-lg" />
               <span className="text-[10px] font-black uppercase tracking-widest">Connect</span>
             </a>
-            <a className="text-slate-400 hover:text-accent transition-colors flex items-center gap-2" href="#contact">
+            <a className={`flex items-center gap-2 transition-colors ${isDark ? 'text-slate-400 hover:text-[#F97316]' : 'text-slate-400 hover:text-[#F97316]'}`} href="#contact">
               <Icon name="mail" className="text-lg" />
               <span className="text-[10px] font-black uppercase tracking-widest">Contact</span>
             </a>
           </div>
-          <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">
+          <p className={`text-[10px] font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>
             © 2024 Ashok Raj Singh. All rights reserved.
           </p>
         </div>

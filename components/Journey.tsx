@@ -1,48 +1,89 @@
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Icon from './Icon';
 import { JOURNEY } from '../constants';
 
-const Journey: React.FC = () => {
+interface JourneyProps {
+  theme: 'light' | 'dark';
+}
+
+const Journey: React.FC<JourneyProps> = ({ theme }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const isDark = theme === 'dark';
+
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-12 bg-white px-6 md:px-10 border border-border-color" id="journey">
-      <div className="flex items-center justify-between mb-12">
-        <h2 className="text-2xl font-black uppercase tracking-tighter flex items-center gap-3">
-          <Icon name="auto_stories" className="text-accent" />
-          The Journey
-        </h2>
-        <div className="h-px flex-1 bg-border-color ml-6"></div>
-      </div>
-      <div className="max-w-3xl mx-auto">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 relative">
-          <div className="absolute left-5 md:left-0 md:top-1/2 md:-translate-y-1/2 w-0.5 md:w-full h-full md:h-0.5 bg-slate-100 z-0">
-            <div className="h-1/2 md:h-full md:w-1/2 bg-accent"></div>
-          </div>
-          
-          {JOURNEY.map((milestone, index) => (
-            <div 
-              key={index} 
-              className={`relative z-10 flex items-center md:flex-col gap-4 md:gap-3 bg-white ${
-                index === 0 ? 'pr-4 md:pr-0' : index === JOURNEY.length - 1 ? 'pl-4 md:pl-0' : 'px-4'
-              }`}
-            >
-              <div className={`size-12 flex items-center justify-center border-2 ${
-                milestone.isCompleted 
-                  ? 'bg-accent border-accent text-white shadow-md shadow-accent/20' 
-                  : 'bg-white border-slate-200 text-slate-400'
-              }`}>
-                <Icon name={milestone.icon} className="text-xl" />
-              </div>
-              <div className="text-left md:text-center">
-                <p className={`text-[10px] font-black uppercase tracking-widest mb-1 ${
-                  milestone.isCompleted ? 'text-accent' : 'text-slate-500'
-                }`}>
-                  {milestone.year}
-                </p>
-                <p className="text-sm font-bold uppercase tracking-tight text-primary">{milestone.label}</p>
-              </div>
+    <section ref={sectionRef} className={`px-6 py-16 transition-colors duration-300 md:px-10 ${isDark ? 'bg-slate-950 text-slate-100' : 'bg-white text-slate-900'}`} id="journey">
+      <div className={`mx-auto max-w-6xl transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}`}>
+        <div className="mb-10 flex flex-col items-center text-center">
+          <div className="mb-5 flex w-full max-w-2xl items-center justify-center gap-3">
+            <div className="hidden h-px flex-1 bg-slate-200 opacity-80 sm:block"></div>
+            <div className={`flex items-center gap-3 rounded-full border px-4 py-2 shadow-[0_10px_30px_-18px_rgba(15,23,42,0.25)] transition-all duration-300 hover:-translate-y-0.5 ${isDark ? 'border-slate-700 bg-slate-900' : 'border-slate-200 bg-white'}`}>
+              <span className={`flex h-8 w-8 items-center justify-center rounded-full ${isDark ? 'bg-slate-800 text-slate-100' : 'bg-slate-100 text-slate-900'}`}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+                  <path d="M4 7h16" />
+                  <path d="M7 4v16" />
+                  <path d="M17 4v16" />
+                  <path d="M4 17h16" />
+                </svg>
+              </span>
+              <h2 className={`text-2xl font-semibold uppercase tracking-[0.18em] sm:text-3xl ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>Career Journey</h2>
             </div>
-          ))}
+            <div className="hidden h-px flex-1 bg-slate-200 opacity-40 sm:block"></div>
+          </div>
+          <p className={`mx-auto max-w-2xl text-sm leading-7 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+            A concise look at how my skills grew from strong fundamentals into modern full-stack engineering.
+          </p>
+        </div>
+
+        <div className="relative">
+          <div className={`absolute left-0 right-0 top-8 hidden h-1 md:block ${isDark ? 'bg-slate-800' : 'bg-[#FDE7D9]'}`}></div>
+          <div className={`absolute left-0 top-8 hidden h-1 bg-[#F97316] transition-all duration-1000 md:block ${isVisible ? 'w-full' : 'w-0'}`}></div>
+
+          <div className="flex flex-col gap-8 md:flex-row md:justify-between md:gap-4">
+            {JOURNEY.map((milestone, index) => (
+              <div
+                key={`${milestone.year}-${milestone.label}`}
+                className={`relative flex-1 transition-all duration-700 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
+                style={{ transitionDelay: `${index * 140}ms` }}
+              >
+                <div className="flex flex-col items-center md:items-start">
+                  <div className="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 border-white bg-[#F97316] text-white shadow-[0_14px_40px_-20px_rgba(249,115,22,0.55)] transition-transform duration-300 hover:scale-105 hover:shadow-[0_16px_45px_-15px_rgba(249,115,22,0.4)]">
+                    <Icon name={milestone.icon} className="text-2xl" />
+                  </div>
+
+                  <div className={`mt-4 w-full rounded-[20px] border p-5 shadow-[0_16px_45px_-24px_rgba(15,23,42,0.25)] transition-all duration-300 hover:-translate-y-1 hover:border-[#F97316] hover:shadow-[0_20px_50px_-20px_rgba(249,115,22,0.24)] ${isDark ? 'border-slate-800 bg-slate-900' : 'border-[#E5E7EB] bg-white'}`}>
+                    <span className={`inline-flex rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] ${isDark ? 'border-slate-700 bg-slate-800 text-[#F9A26C]' : 'border-[#FDE7D9] bg-[#FFF7F2] text-[#A13D52]'}`}>
+                      {milestone.year}
+                    </span>
+                    <h3 className={`mt-4 text-lg font-semibold ${isDark ? 'text-slate-100' : 'text-slate-900'}`}>{milestone.label}</h3>
+                    {milestone.organization && (
+                      <p className={`mt-1 text-sm font-medium ${isDark ? 'text-[#F9A26C]' : 'text-[#A13D52]'}`}>{milestone.organization}</p>
+                    )}
+                    <p className={`mt-3 text-sm leading-7 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>{milestone.description}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
